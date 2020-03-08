@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#endif
 
 namespace XNode {
     /// <summary>
@@ -23,9 +26,14 @@ namespace XNode {
     /// </code>
     /// </example>
     [Serializable]
+#if ODIN_INSPECTOR
+    public abstract class Node : SerializedScriptableObject {
+#else
     public abstract class Node : ScriptableObject {
-        /// <summary> Used by <see cref="InputAttribute"/> and <see cref="OutputAttribute"/> to determine when to display the field value associated with a <see cref="NodePort"/> </summary>
-        public enum ShowBackingValue {
+#endif
+
+    /// <summary> Used by <see cref="InputAttribute"/> and <see cref="OutputAttribute"/> to determine when to display the field value associated with a <see cref="NodePort"/> </summary>
+    public enum ShowBackingValue {
             /// <summary> Never show the backing value </summary>
             Never,
             /// <summary> Show the backing value only when the port does not have any active connections </summary>
